@@ -369,6 +369,6 @@ void loop()
   default:
     break;
   }
-  randome = random(0, 2);
+  randome = random(0, 1);
   // Wait a bit before scanning again
 }
