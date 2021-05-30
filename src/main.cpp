@@ -8655,16 +8655,20 @@ const unsigned char clip15[] = {
 
 void moveFoward(int speed)
 {
-  digitalWrite(IN_2, HIGH);
+  digitalWrite(IN_1, HIGH);
+  digitalWrite(IN_2, LOW);
   digitalWrite(IN_3, HIGH);
+  digitalWrite(IN_4, LOW);
   analogWrite(ENA, speed);
   analogWrite(ENB, speed);
 }
 
 void moveBack(int speed)
 {
+  digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
   digitalWrite(IN_2, HIGH);
+  digitalWrite(IN_1, LOW);
   analogWrite(ENA, speed);
   analogWrite(ENB, speed);
 }
@@ -8672,15 +8676,19 @@ void moveBack(int speed)
 void moveRight(int speed)
 {
   digitalWrite(IN_1, HIGH);
+  digitalWrite(IN_2, LOW);
   digitalWrite(IN_3, LOW);
+  digitalWrite(IN_4, LOW);
   analogWrite(ENA, speed);
   analogWrite(ENB, speed);
 }
 
 void moveLeft(int speed)
 {
+  digitalWrite(IN_4, LOW);
   digitalWrite(IN_3, HIGH);
   digitalWrite(IN_1, LOW);
+  digitalWrite(IN_2, LOW);
   analogWrite(ENA, speed);
   analogWrite(ENB, speed);
 }
