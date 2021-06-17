@@ -95,6 +95,8 @@
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
 OLED display = OLED(0, 2, 16, 0x3C, 128, 64, true);
+const char* ssid     = "HOANG LONG2";         // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password = "04081980";     // The password of the Wi-Fi network
 
 int timeLoad = random(27, 35);
 int timeReboot = 0;
@@ -9468,6 +9470,25 @@ void setup()
 {
   display.begin();          // Instead of Serial.begin(9600)
   display.setTTYMode(true); // This set the TTY mode
+   Serial.begin(115200);         // Start the Serial communication to send messages to the computer
+  delay(10);
+  display.println('\n');
+  
+  WiFi.begin(ssid, password);             // Connect to the network
+  display.print(" Connecting to :\n");
+  display.printf(" %s",ssid); display.println(" ...");
+  display.display();
+
+  int i = 0;
+  while (WiFi.status() != WL_CONNECTED) { // Wait for the Wi-Fi to connect
+    delay(1000);
+  }
+
+  display.println('\n');
+  display.println(" Connection established!");  
+  display.print(" IP address:\t \n ");
+  display.print(WiFi.localIP());    // Send the IP address of the ESP8266 to the computer
+  display.display();   
   pinMode(IN_1, OUTPUT);
   pinMode(IN_2, OUTPUT);
   pinMode(IN_3, OUTPUT);
@@ -9492,9 +9513,10 @@ void setup()
     //Ngừng phát nhạc để sau đó chơi nhạc tiếp!
     noTone(buzzer);
   }
+  
   if (timeReboot != timeLoad)
   {
-    display.printf(">_\tPowered by: \n\n");
+    display.printf("\n>_\tPowered by: \n\n");
     display.printf("\t[-Qiu Qiu Robotic-]\n\n\n");
     display.printf("\t  Version: 1.0.0");
     delay(3000);
@@ -9528,6 +9550,7 @@ void setup()
       delay(500);
     }
   }
+  
 }
 
 void loop()
